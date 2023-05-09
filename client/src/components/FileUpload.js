@@ -16,26 +16,31 @@ const FileUpload = ({ contract, account, provider }) => {
           url: "https://api.pinata.cloud/pinning/pinFileToIPFS",
           data: formData,
           headers: {
-            pinata_api_key: `Enter Your Key`,
-            pinata_secret_api_key: `Enter Your Secret Key`,
+            pinata_api_key: `66044285097fd45af6d7`,
+            pinata_secret_api_key: `4d96214d8330cf460c238cd04ed6255890234f3a6c3c1d988f4f15f409f505a9`,
             "Content-Type": "multipart/form-data",
           },
         });
-        const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
+        // console.log(1);
+        // const ImgHash = `ipfs://${resFile.data.IpfsHash}`;
+        const ImgHash = `https://gateway.pinata.cloud/ipfs/${resFile.data.IpfsHash}`;
+        // console.log(ImgHash);
         //const signer = contract.connect(provider.getSigner());
-        const signer = contract.connect(provider.getSigner());
-        signer.add(account, ImgHash);
+        // const signer = contract.connect(provider.getSigner());
+        // signer.add(account, ImgHash);
+        contract.add(account,ImgHash);
+        alert("Successfully Image Uploaded");
+        setFileName("No image selected");
+        setFile(null);
       } catch (e) {
         alert("Unable to upload image to Pinata");
       }
     }
-    alert("Successfully Image Uploaded");
-    setFileName("No image selected");
-    setFile(null);
+   
   };
   const retrieveFile = (e) => {
     const data = e.target.files[0]; //files array of files object
-    // console.log(data);
+    console.log(data);
     const reader = new window.FileReader();
     reader.readAsArrayBuffer(data);
     reader.onloadend = () => {

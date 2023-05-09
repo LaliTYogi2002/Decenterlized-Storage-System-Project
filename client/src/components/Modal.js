@@ -3,11 +3,13 @@ import "./Modal.css";
 const Modal = ({ setModalOpen, contract }) => {
   const sharing = async () => {
     const address = document.querySelector(".address").value;
+    console.log("lalit")
     await contract.allow(address);
     setModalOpen(false);
+    console.log("shaer");
   };
   useEffect(() => {
-    const accessList = async () => {
+    const accessList = async () => { 
       const addressList = await contract.shareAccess();
       let select = document.querySelector("#selectNumber");
       const options = addressList;
